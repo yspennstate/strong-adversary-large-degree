@@ -120,7 +120,8 @@ $c\,n\,e^{-2c\sqrt{2\ln n}}>4\sqrt{n-1}$, which holds for every $n$ larger than 
 For $n=65537$ and $\varepsilon=2^{-11}$ the limit equals $67583/134285311$. This is more than $5$ times the
 right-hand side of \Cref{thm:zu} for every $\alpha\in[1/(n-1),1-1/n]$, and more than $8$ times it for $\alpha=1/4$.
 
-The factor in \Cref{thm:zu} cannot hold uniformly in the degree. The exponent $1/2$ can, by the following argument.
+The factor in \Cref{thm:zu} cannot hold uniformly in the degree, but a bound with exponent $1/2$ does, by the following
+argument.
 Let $P$ be reversible with respect to $\pi$ with positive entries at least $1/D$, let $Q$ be admissible, let $(Y_i)$
 be the chain $P$ started at $x$, with expectation $\mathbb E_x$, and let
 $L=\prod_{i<\tau}Q(Y_i,Y_{i+1})/P(Y_i,Y_{i+1})$. Then
@@ -159,20 +160,29 @@ every chain as in \Cref{thm:half}, every $\varepsilon\le c_\kappa/\sqrt{D\tau}$ 
 if $\kappa\le1/2$.
 \end{corollary}
 
-The ``only if'' half also holds with the lazy walk on $K_n$ in place of the simple random walk (\Cref{sec:fail}).
+The ``only if'' half also holds with the lazy walk $P_L=(I+P)/2$ on $K_n$ in place of the simple random walk
+(\Cref{sec:fail}).
 For graphs of bounded degree \Cref{thm:zu}, where it holds, gives $\pi(S)^{1-o(1)}$, which for small $\pi(S)$ is
 much smaller than the bound $2\pi(S)^{1/2}$ of \Cref{thm:half}. Whether \Cref{thm:zu} holds for bounded $d$ is open: the choice of $k$ in the proof in~\cite{Zu} is
 allowed only when $d\ln(1/p)\le2t$.
 
-The rook's graph $K_q\square K_q$ has the pairs $(i,j)$ with $1\le i,j\le q$ as vertices, two pairs being adjacent
-when they agree in exactly one coordinate. On this graph with $q\ge41$ and $\varepsilon=1/\sqrt{20d\tau}$, \Cref{thm:half} gives
-$\pi^+(\{x\})\le2/q$ at every vertex $x$. There the bound of \Cref{prop:tv} below is larger than $2/q$, the bound
-of~\cite[Proposition~4.7]{HSS} is larger than $1/4$, and the bound of~\cite[Proposition~4.8]{HSS} is larger than $1$
-(\Cref{prop:rook}).
+Three other bounds apply to every admissible matrix and so, by \Cref{lem:limit}, to $\pi^+$. For every chain, the
+total variation perturbation bounds for stationary distributions in terms of the mixing time, of the kind studied by
+Mitrophanov~\cite{Mi}, give $\pi^+(S)\le\pi(S)+2\varepsilon\tau$ (\Cref{prop:tv}). When $2\varepsilon\tau<1$ this is
+larger than $2\pi(S)^{1/2}$ exactly when $\pi(S)<\bigl(1-\sqrt{1-2\varepsilon\tau}\bigr)^2$, a threshold of order
+$(\varepsilon\tau)^2$. For a graph on $n$ vertices with minimum degree at least $\gamma n$ and $\varepsilon\le\beta/n$,
+Haslegrave, Sauerwald and Sylvester~\cite[Proposition~4.7]{HSS} show that a stationary distribution of an admissible
+matrix gives each vertex $u$ probability at most $(1+\beta)\gamma^{-2}\pi(u)$. For a graph with degrees at most $d$ their~\cite[Proposition~4.8]{HSS} gives
+$\pi^+(\{x\})\le2(1+\varepsilon d)^{\tau_2}\pi(x)$, where $\tau_2$ is a mixing time of the lazy walk recalled in
+\Cref{sec:compare}. The rook's graph $K_q\square K_q$ has the pairs $(i,j)$ with $1\le i,j\le q$ as vertices, two pairs
+being adjacent when they agree in exactly one coordinate; it has $n=q^2$ vertices, all of degree $d=2(q-1)$. On it,
+with $q\ge41$ and $\varepsilon=1/\sqrt{20d\tau}$, \Cref{thm:half} gives $\pi^+(\{x\})\le2/q$ at every vertex $x$, while
+the bound of \Cref{prop:tv} is larger than $2/q$, the bound of~\cite[Proposition~4.7]{HSS} is larger than $1/4$, and
+the bound of~\cite[Proposition~4.8]{HSS} is larger than $1$ (\Cref{prop:rook}).
 
 \section{Empirical measures}\label{sec:emp}
 
-For the walk under a strong $\varepsilon$-adversary, with the matrices $Q_i=(1-\varepsilon)P+\varepsilon B_i$, put
+For the walk under a strong $\varepsilon$-adversary, with the matrices $Q_i$ of \Cref{sec:intro}, put
 \[
 \mu_t(x)=\frac1t\sum_{i<t}\mathbf 1\{X_i=x\},\qquad F_t(x,y)=\frac1t\sum_{i<t}\mathbf 1\{X_i=x\}Q_i(x,y).
 \]
@@ -262,7 +272,7 @@ $D=n-1$ and $\tau=1$ for $n\ge5$ (\Cref{lem:kn}). With $\varepsilon=\min(c_\kapp
 gives $\pi^+(\{v\})\ge\min(c_\kappa,1)/(2\sqrt{n-1})$, which exceeds $C_\kappa n^{-\kappa}$ for large $n$.
 \end{proof}
 
-The ``only if'' half of \Cref{cor:exp} also holds with the lazy walk $P_L=(I+P)/2$ on $K_n$ in place of the simple
+The ``only if'' half of \Cref{cor:exp} also holds with the lazy walk $P_L$ on $K_n$ in place of the simple
 random walk. Here $D=2(n-1)$. The eigenvalues of $P_L$ other than $1$ equal $r=(n-2)/(2(n-1))$, so
 $P_L^t(u,\cdot)-\pi=r^t(\delta_u-\pi)$ and the distance to $\pi$ at time $t$ is $(1-1/n)r^t$. This is
 $(n-2)/(2n)>1/4$ at $t=1$ and $(n-2)^2/(4n(n-1))<1/4$ at $t=2$, so $\tau=2$ for $n\ge5$. The lazy walk has a loop at
@@ -284,7 +294,7 @@ corollary gives $e^{2\varepsilon\sqrt{2d\ln d}}/d<3.3/d$.
 \section{An exponent one half bound}\label{sec:half}
 
 Throughout this section $P$, $\pi$, $D$ and $\tau$ are as in \Cref{thm:half}, and $L^2(\pi)$ is the space of functions
-on $V$ with $\|h\|^2=\sum_x\pi(x)h(x)^2$. For a matrix $K$ on $V$ write $Kh(x)=\sum_yK(x,y)h(y)$, and let $K^*$ be its
+on $V$ with the norm $\|h\|$ of \Cref{sec:intro}. For a matrix $K$ on $V$ write $Kh(x)=\sum_yK(x,y)h(y)$, and let $K^*$ be its
 adjoint in $L^2(\pi)$, $K^*g(y)=\sum_x\pi(x)g(x)K(x,y)/\pi(y)$. If $\nu$ is a measure with density $f=\nu/\pi$, then
 $\nu K$ has density $K^*f$. Reversibility says that $P^*=P$.
 
@@ -298,7 +308,7 @@ $\sum_yP(x,y)U(x,y)=1$, so
 \[
 \sum_yP(x,y)\bigl(1+\varepsilon(U(x,y)-1)\bigr)^2=1+\varepsilon^2\Bigl(\sum_yP(x,y)U(x,y)^2-1\Bigr)\le1+\varepsilon^2(D-1).
 \]
-Let $(Y_i)$ be the chain $P$ started at $x$, and $L=\prod_{i<\tau}Q(Y_i,Y_{i+1})/P(Y_i,Y_{i+1})$. Since $Q(x,y)>0$ only
+Let $(Y_i)$ and $L$ be as in \Cref{sec:intro}. Since $Q(x,y)>0$ only
 where $P(x,y)>0$, $Q^\tau h(x)=\mathbb E_x[L\,h(Y_\tau)]$ and $\mathbb E_x L=1$. Conditioning on $Y_0,\dots,Y_{\tau -1}$
 and using the display $\tau$ times gives $\mathbb E_xL^2\le(1+\varepsilon^2D)^\tau\le e^{\varepsilon^2D\tau}$, so
 $\mathbb E_x(L-1)^2\le e^{1/20}-1<1/16$. By Cauchy--Schwarz,
@@ -309,7 +319,7 @@ Squaring, multiplying by $\pi(x)$ and summing, with $\pi P^\tau=\pi$, gives the 
 \end{proof}
 
 \begin{lemma}\label{lem:gap}
-Let $A=P^\tau -\Pi$, where $\Pi(x,y)=\pi(y)$. Then $\|Ah\|\le\frac12\|h\|$ for every $h$.
+Let $A=P^\tau -\Pi$, with $\Pi$ as in \Cref{sec:intro}. Then $\|Ah\|\le\frac12\|h\|$ for every $h$.
 \end{lemma}
 
 \begin{proof}
@@ -328,7 +338,7 @@ $\nu(S)\le2\pi(S)^{1/2}$ for every $S\subseteq V$.
 \end{proposition}
 
 \begin{proof}
-Let $f=\nu/\pi$. Since $\nu Q^\tau=\nu$, $f=(Q^\tau)^*f$. Since $\sum_x\pi(x)f(x)=1$, $\Pi^*f$ is the constant
+As in \Cref{sec:intro}, $f=\nu/\pi$. Since $\nu Q^\tau=\nu$, $f=(Q^\tau)^*f$. Since $\sum_x\pi(x)f(x)=1$, $\Pi^*f$ is the constant
 function $\mathbf1$; also $(P^\tau)^*\mathbf1=\mathbf1$ and $\Pi^*\mathbf1=\mathbf1$, so $A^*\mathbf1=0$ and
 \[
 f-\mathbf1=(Q^\tau -P^\tau)^*f+(P^\tau)^*f-\Pi^*f=(Q^\tau -P^\tau)^*f+A^*(f-\mathbf1).
@@ -343,9 +353,10 @@ By \Cref{prop:stat}, every stationary distribution $\nu$ of every admissible mat
 \Cref{lem:limit} gives the claim.
 \end{proof}
 
-The next bound needs neither reversibility nor a lower bound on the entries of $P$. It is an instance of the
-perturbation bounds for stationary distributions in terms of the mixing time; see~\cite{Mi} and the comparison of
-such bounds in~\cite{CM}.
+The next bound is of the kind given by the perturbation theory of uniformly ergodic chains in terms of the mixing
+time~\cite{Mi}; a comparison of such bounds is in~\cite{CM}. What the proposition records is the constant
+$2\varepsilon\tau$, with $\tau$ the mixing time at total variation $1/4$, and that it needs neither reversibility nor a
+lower bound on the entries of $P$; we include the short derivation.
 
 \begin{proposition}\label{prop:tv}
 Let $P$ be an irreducible transition matrix with stationary distribution $\pi$ and mixing time $\tau<\infty$. If
@@ -373,10 +384,9 @@ The first step of this proof is the estimate behind~\cite[Proposition~2.12]{Zu}.
 
 \section{Comparison with other bounds}\label{sec:compare}
 
-For a graph with minimum degree at least $\gamma n$ and $\varepsilon\le\beta/n$, Haslegrave, Sauerwald and
-Sylvester~\cite[Proposition~4.7]{HSS} prove that a stationary distribution of one fixed admissible matrix gives each
-vertex $u$ probability at most $(1+\beta)\gamma^{-2}\pi(u)$. By \Cref{lem:limit} a bound for every admissible matrix
-is a bound on $\pi^+$. On $K_n$, with $\gamma=1-1/n$ and $\beta=\varepsilon n$, this gives
+The bound of~\cite[Proposition~4.7]{HSS} stated in \Cref{sec:intro}, for a graph on $n$ vertices with minimum degree
+at least $\gamma n$ and $\varepsilon\le\beta/n$, is proved there for a stationary distribution of one fixed admissible
+matrix; by \Cref{lem:limit} a bound for every admissible matrix is a bound on $\pi^+$. On $K_n$, with $\gamma=1-1/n$ and $\beta=\varepsilon n$, this gives
 $\pi^+(\{v\})\le(1+\varepsilon n)n/(n-1)^2$, which is of order $\varepsilon$ for the $\varepsilon$ of
 \Cref{thm:fail}. There \Cref{thm:fail} gives the exact value $a/(1+a)$.
 
@@ -384,14 +394,17 @@ $\pi^+(\{v\})\le(1+\varepsilon n)n/(n-1)^2$, which is of order $\varepsilon$ for
 $2\pi(S)^{1/2}<\pi(S)+2\varepsilon\tau$ exactly when $\pi(S)<\bigl(1-\sqrt{1-2\varepsilon\tau}\bigr)^2$, which is
 $(\varepsilon\tau)^2(1+O(\varepsilon\tau))$; under the hypothesis of \Cref{thm:half}, $(\varepsilon\tau)^2$ is at most
 $\tau/(20D)$. If $2\varepsilon\tau\ge1$, the bound of \Cref{prop:tv} is at least $1$, and \Cref{thm:half} is the
-smaller one for every $S$ with $\pi(S)<1/4$. On $K_n$ the two bounds are of the same order for a single vertex.
+smaller one for every $S$ with $\pi(S)<1/4$. On $K_n$, where $D=n-1$ and $\tau=1$, the hypothesis of \Cref{thm:half}
+is $\varepsilon\le1/\sqrt{20(n-1)}$, and for a single vertex \Cref{prop:tv} then gives the smaller bound:
+$1/n+2\varepsilon<2n^{-1/2}$.
 
 Let $d(u)$ be the degree of a vertex $u$. Haslegrave, Sauerwald and Sylvester~\cite[Section~4.3]{HSS} call a matrix $Q$
 supported on the edges of a graph a $(\theta,\Theta)$-simple walk if $\theta/d(u)\le Q(u,w)\le\Theta/d(u)$ for every
 edge $uw$. They prove that its stationary distribution gives each vertex $x$ probability at most
-$2\Theta^{\tau_2}\pi(x)$ \cite[Proposition~4.8]{HSS}. Here $\tau_2=\min\{t_\infty,3\ln n/|\ln\lambda_*|\}$. The time
+$2\Theta^{\tau_2}\pi(x)$ \cite[Proposition~4.8]{HSS}. Here $\tau_2=\min\{t_\infty,3\ln n/|\ln\lambda_*|\}$, with $n$ the
+number of vertices. The time
 $t_\infty$, defined in \cite[Section~2, equation~(2)]{HSS}, is the least $t$ with $|\tilde p_t(x,y)/\pi(y)-1|<1/e$ for all $x,y$, where $\tilde p_t$ is the law at time
-$t$ of the lazy walk $(I+P)/2$, and $\lambda_*$ is the largest absolute value of an eigenvalue other than $1$ of the
+$t$ of the lazy walk $P_L$ of the simple random walk, and $\lambda_*$ is the largest absolute value of an eigenvalue other than $1$ of the
 simple random walk. On a graph with degrees at most $d$ an admissible matrix satisfies
 $(1-\varepsilon)/d(u)\le Q(u,w)\le\varepsilon+(1-\varepsilon)/d(u)\le(1+\varepsilon d)/d(u)$, as in the proof
 of~\cite[Proposition~4.7]{HSS}. So it is a $(1-\varepsilon,1+\varepsilon d)$-simple walk, and by \Cref{lem:limit}
@@ -402,9 +415,7 @@ $t_\infty\ge2$, since the lazy walk stays put at time $1$ with probability $1/2$
 $\tau_2\ge2$, the bound of~\cite{HSS} at a vertex is at least $2(1+c\sqrt{n-1})^2/n>2c^2(n-1)/n$, and \Cref{thm:half}
 gives $2n^{-1/2}$.
 
-The rook's graph $K_q\square K_q$ has the pairs $(i,j)$ with $1\le i,j\le q$ as vertices, and joins two pairs when
-they agree in exactly one coordinate. It has $n=q^2$ vertices, all of degree $d=2(q-1)$, it is connected, and for
-$q\ge3$ it contains triangles.
+The rook's graph $K_q\square K_q$ of \Cref{sec:intro} is connected, and for $q\ge3$ it contains triangles.
 
 \begin{lemma}\label{lem:rook}
 For $q\ge3$ the simple random walk on $K_q\square K_q$ has $\tau\le4$.
@@ -514,27 +525,30 @@ $c$ & constant in the size of $\varepsilon$ on $K_n$ & \Cref{sec:intro}\\
 $p$, $k$ & probability of $S$ at time $t$ without the adversary; exponent in~\cite[Theorem~3.3]{Zu} & \Cref{sec:intro}\\
 $a$ & probability that the walk under the adversary of \Cref{thm:fail} enters $v$ & \Cref{thm:fail}\\
 $D$ & reciprocal of the smallest positive entry of $P$ & \Cref{sec:intro}\\
-$Y_i$, $\mathbb E_x$, $L$ & chain $P$ started at $x$, its expectation, likelihood ratio & \Cref{sec:intro}\\
+$Y_i$, $\mathbb E_x$, $L$ & chain $P$ started at $x$, its expectation, product of the ratios $Q/P$ over the first $\tau$ steps & \Cref{sec:intro}\\
 $h$, $\|h\|$ & a function on $V$; its norm in $L^2(\pi)$ & \Cref{sec:intro}\\
 $\Pi$ & the matrix with rows $\pi$ & \Cref{sec:intro}\\
 $\nu$, $f$, $\mathbf 1$ & a stationary distribution of an admissible matrix; its density; the constant function & \Cref{sec:intro}\\
 $\kappa$, $c_\kappa$, $C_\kappa$ & exponent and constants of the corollary & \Cref{cor:exp}\\
-$q$, $K_q\square K_q$ & side and rook's graph & \Cref{sec:intro}\\
-$\mu_t$, $F_t$ & empirical occupation and flow measures & \Cref{sec:emp}\\
+$q$, $K_q\square K_q$, $j$ & side, rook's graph, a coordinate of its vertices & \Cref{sec:intro}\\
+$\mu_t$, $F_t$ & fraction of times $i<t$ spent at $x$; average over $i<t$ of $\mathbf 1\{X_i=x\}Q_i(x,y)$ & \Cref{sec:emp}\\
 $\xi_i$, $M_t$, $\zeta$ & martingale differences, their sum, a positive constant & \Cref{lem:emp}\\
 $t_j$, $\mu$, $F$ & a sequence of times; limits of $\mu_{t_j}$ and $F_{t_j}$ & \Cref{lem:limit}\\
 $\Gamma_t$, $\Gamma$, $\bar B$, $\bar Q$ & adversary measure, its limit, and the matrices built from it & \Cref{lem:limit}\\
 $\delta_v$ & point mass at $v$ & \Cref{sec:fail}\\
-$P_L$, $r$ & lazy walk on $K_n$; its eigenvalue other than $1$ & \Cref{sec:fail}\\
+$I$, $P_L$ & identity matrix; lazy walk $(I+P)/2$ & \Cref{sec:intro}\\
+$r$ & eigenvalue other than $1$ of the lazy walk on $K_n$ & \Cref{sec:fail}\\
 $K^*$ & adjoint of $K$ in $L^2(\pi)$ & \Cref{sec:half}\\
 $U$ & the ratio $B/P$ & \Cref{lem:lr}\\
 $A$ & $P^\tau -\Pi$ & \Cref{lem:gap}\\
 $\rho$, $\eta$, $s$ & probability measure; signed measure of mass $0$; its total variation & \Cref{prop:tv}\\
-$\beta$, $\gamma$ & constants in the dense-graph bound of~\cite{HSS} & \Cref{sec:compare}\\
-$d(u)$, $u$, $w$ & degree of the vertex $u$; vertices & \Cref{sec:compare}\\
+$\beta$, $\gamma$ & constants in~\cite[Proposition~4.7]{HSS} & \Cref{sec:intro}\\
+$u$, $w$ & vertices & \Cref{sec:intro}, \Cref{sec:fail}\\
+$d(u)$ & degree of the vertex $u$ & \Cref{sec:compare}\\
 $\theta$, $\Theta$ & constants of a simple walk in~\cite{HSS} & \Cref{sec:compare}\\
-$\tau_2$, $t_\infty$, $\tilde p_t$, $\lambda_*$ & quantities in~\cite[Proposition~4.8]{HSS} & \Cref{sec:compare}\\
-$m$, $j$ & numbers of steps in the proof of \Cref{lem:rook} & \Cref{lem:rook}\\
+$\tau_2$ & time in~\cite[Proposition~4.8]{HSS} & \Cref{sec:intro}\\
+$t_\infty$, $\tilde p_t$, $\lambda_*$ & quantities defining $\tau_2$ & \Cref{sec:compare}\\
+$m$ & number of steps in the proof of \Cref{lem:rook} & \Cref{lem:rook}\\
 $\tilde t$ & total variation mixing time of the lazy walk & \Cref{sec:compare}\\
 \end{tabular}
 \end{center}
