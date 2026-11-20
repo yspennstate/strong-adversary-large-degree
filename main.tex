@@ -386,7 +386,7 @@ Let $d(u)$ be the degree of a vertex $u$. Haslegrave, Sauerwald and Sylvester~\c
 supported on the edges of a graph a $(\theta,\Theta)$-simple walk if $\theta/d(u)\le Q(u,w)\le\Theta/d(u)$ for every
 edge $uw$. They prove that its stationary distribution gives each vertex $x$ probability at most
 $2\Theta^{\tau_2}\pi(x)$ \cite[Proposition~4.8]{HSS}. Here $\tau_2=\min\{t_\infty,3\ln n/|\ln\lambda_*|\}$. The time
-$t_\infty$ is the least $t$ with $|\tilde p_t(x,y)/\pi(y)-1|<1/e$ for all $x,y$, where $\tilde p_t$ is the law at time
+$t_\infty$, defined in \cite[Section~2, equation~(2)]{HSS}, is the least $t$ with $|\tilde p_t(x,y)/\pi(y)-1|<1/e$ for all $x,y$, where $\tilde p_t$ is the law at time
 $t$ of the lazy walk $(I+P)/2$, and $\lambda_*$ is the largest absolute value of an eigenvalue other than $1$ of the
 simple random walk. On a graph with degrees at most $d$ an admissible matrix satisfies
 $(1-\varepsilon)/d(u)\le Q(u,w)\le\varepsilon+(1-\varepsilon)/d(u)\le(1+\varepsilon d)/d(u)$, as in the proof
@@ -477,9 +477,10 @@ The author holds equity in Heights Labs and Convex Nexus Capital and has a manag
 The results of \Cref{sec:emp,sec:fail,sec:half,sec:compare} were developed by OpenAI Codex and Anthropic Claude
 agents working under the author's direction with the shared memory of Math Brain \cite{MathBrainRepo,MathBrainPaper}
 and the Brain framework \cite{BrainFramework}. The agents also drafted the text and wrote the exact-arithmetic script
-of the data section. The model, the definitions, \Cref{thm:zu} and the first step of \Cref{prop:tv} are from
-\cite{Zu}, and the bounds compared in \Cref{sec:compare} are from \cite{HSS}. The author directed the work and is
-responsible for the content of the paper.
+of the data section. The model, the definitions and \Cref{thm:zu} are Zuckerman's \cite{Zu}, and the first step of
+\Cref{prop:tv} is his Proposition~2.12. The controller model is due to Azar, Broder, Karlin, Linial and Phillips
+\cite{ABKLP}. The bounds compared in \Cref{sec:compare} are Propositions~4.7 and~4.8 of Haslegrave, Sauerwald and
+Sylvester \cite{HSS}. The author directed the work and is responsible for the content of the paper.
 
 \section*{Data and code availability}
 
