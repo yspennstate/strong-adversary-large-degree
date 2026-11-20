@@ -164,7 +164,8 @@ For graphs of bounded degree \Cref{thm:zu}, where it holds, gives $\pi(S)^{1-o(1
 much smaller than the bound $2\pi(S)^{1/2}$ of \Cref{thm:half}. Whether \Cref{thm:zu} holds for bounded $d$ is open: the choice of $k$ in the proof in~\cite{Zu} is
 allowed only when $d\ln(1/p)\le2t$.
 
-On the rook's graph $K_q\square K_q$ with $q\ge41$ and $\varepsilon=1/\sqrt{20d\tau}$, \Cref{thm:half} gives
+The rook's graph $K_q\square K_q$ has the pairs $(i,j)$ with $1\le i,j\le q$ as vertices, two pairs being adjacent
+when they agree in exactly one coordinate. On this graph with $q\ge41$ and $\varepsilon=1/\sqrt{20d\tau}$, \Cref{thm:half} gives
 $\pi^+(\{x\})\le2/q$ at every vertex $x$. There the bound of \Cref{prop:tv} below is larger than $2/q$, the bound
 of~\cite[Proposition~4.7]{HSS} is larger than $1/4$, and the bound of~\cite[Proposition~4.8]{HSS} is larger than $1$
 (\Cref{prop:rook}).
@@ -175,7 +176,8 @@ For the walk under a strong $\varepsilon$-adversary, with the matrices $Q_i=(1-\
 \[
 \mu_t(x)=\frac1t\sum_{i<t}\mathbf 1\{X_i=x\},\qquad F_t(x,y)=\frac1t\sum_{i<t}\mathbf 1\{X_i=x\}Q_i(x,y).
 \]
-The first lemma is the strong law for bounded martingale differences; we include the short proof.
+The first lemma is the strong law for bounded martingale differences (see~\cite[Chapter~2]{HH}); we include the
+short proof.
 
 \begin{lemma}\label{lem:emp}
 Almost surely, $\mu_t(y)-\sum_xF_t(x,y)\to0$ for every $y\in V$.
@@ -341,7 +343,9 @@ By \Cref{prop:stat}, every stationary distribution $\nu$ of every admissible mat
 \Cref{lem:limit} gives the claim.
 \end{proof}
 
-The next bound needs neither reversibility nor a lower bound on the entries of $P$.
+The next bound needs neither reversibility nor a lower bound on the entries of $P$. It is an instance of the
+perturbation bounds for stationary distributions in terms of the mixing time; see~\cite{Mi} and the comparison of
+such bounds in~\cite{CM}.
 
 \begin{proposition}\label{prop:tv}
 Let $P$ be an irreducible transition matrix with stationary distribution $\pi$ and mixing time $\tau<\infty$. If
@@ -541,6 +545,13 @@ $\tilde t$ & total variation mixing time of the lazy walk & \Cref{sec:compare}\\
 Y.~Azar, A.~Z.~Broder, A.~R.~Karlin, N.~Linial and S.~J.~Phillips, \emph{Biased random walks}, Combinatorica
 \textbf{16} (1996), 1--18. \doi{10.1007/BF01300124}
 
+\bibitem{CM}
+G.~E.~Cho and C.~D.~Meyer, \emph{Comparison of perturbation bounds for the stationary distribution of a Markov
+chain}, Linear Algebra Appl.\ \textbf{335} (2001), 137--150. \doi{10.1016/S0024-3795(01)00320-2}
+
+\bibitem{HH}
+P.~Hall and C.~C.~Heyde, \emph{Martingale Limit Theory and Its Application}, Academic Press, New York, 1980.
+
 \bibitem{HSS}
 J.~Haslegrave, T.~Sauerwald and J.~Sylvester, \emph{Time dependent biased random walks}, ACM Trans.\ Algorithms
 \textbf{18} (2022), no.~2, 1--30. \doi{10.1145/3498848}. Statement numbers refer to arXiv:2006.02475v2.
@@ -556,6 +567,10 @@ Y.~Shmalo, \emph{Math Brain: shared, auditable memory for multi-agent mathematic
 \bibitem{BrainFramework}
 Y.~Shmalo, \emph{Brain Framework}, public software repository, 2026.
 \url{https://github.com/yspennstate/brain-framework-public}
+
+\bibitem{Mi}
+A.~Yu.~Mitrophanov, \emph{Sensitivity and convergence of uniformly ergodic Markov chains}, J.\ Appl.\ Probab.\
+\textbf{42} (2005), 1003--1014. \doi{10.1239/jap/1134587812}
 
 \bibitem{Zu}
 D.~Zuckerman, \emph{Markov chain robustness}, in: 17th Innovations in Theoretical Computer Science Conference
