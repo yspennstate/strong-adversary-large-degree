@@ -1,0 +1,482 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\theoremstyle{plain}
+\newtheorem{thmz}{Theorem}
+\renewcommand{\thethmz}{Z}
+\crefname{thmz}{Theorem}{Theorems}
+
+\DeclareMathOperator{\supp}{supp}
+\providecommand{\doi}[1]{\href{https://doi.org/#1}{doi:#1}}
+\newcommand{\tmix}{t_{\mathrm{mix}}}
+\newcommand{\tup}{t_{\mathrm{up}}}
+
+\title{Stationary robustness of random walks against a strong adversary at large degree}
+\author{Yitzchak Shmalo\\
+Einstein Institute of Mathematics, The Hebrew University of Jerusalem\\
+Givat Ram, Jerusalem, Israel}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A strong $\varepsilon$-adversary for a Markov chain replaces each transition, with probability $\varepsilon$, by a step
+of its own choosing inside the support of the chain. The upper stationary probability $\pi^+(S)$ of a set $S$ is the
+largest long-run fraction of time in $S$ that such an adversary can force. For the simple random walk on a graph
+with degrees at most $d$, Zuckerman stated $\pi^+(S)=O(\pi(S)^{1-o(1)})$ for $\varepsilon$ of order $1/\sqrt{d\,t}$, with
+$t$ a variant of the mixing time, and conjectured it with the mixing time itself. Both
+fail on the complete graph $K_n$ with $\varepsilon=c/\sqrt{n-1}$, where an adversary keeps the walk at one vertex at
+least a fraction $\varepsilon/2$ of the time. For a reversible chain
+whose positive entries are at least $1/D$ and whose mixing time is $\tau$, we prove that $\varepsilon^2D\tau\le1/20$
+implies $\pi^+(S)\le2\pi(S)^{1/2}$ for every $S$. No larger exponent holds for all $\varepsilon\le c/\sqrt{D\tau}$.
+\end{abstract}
+
+\section{Introduction}\label{sec:intro}
+
+Let $P$ be the transition matrix of an irreducible Markov chain on a finite set $V$ with stationary distribution
+$\pi$. Following Zuckerman~\cite{Zu}, a \emph{strong $\varepsilon$-adversary} chooses at each time $t$ a stochastic
+matrix $B_t$, which may depend on the whole history $X_0,\dots,X_t$, with $\supp B_t(x,\cdot)\subseteq\supp P(x,\cdot)$
+for every $x$, and the walk moves according to
+\[
+\Pr[X_{t+1}=y\mid X_0,\dots,X_t]=(1-\varepsilon)P(X_t,y)+\varepsilon B_t(X_t,y).
+\]
+Call a matrix $Q$ \emph{admissible} if $Q=(1-\varepsilon)P+\varepsilon B$ for a stochastic $B$ with
+$\supp B(x,\cdot)\subseteq\supp P(x,\cdot)$ for every $x$; at time $t$ the walk above moves by the admissible matrix
+$(1-\varepsilon)P+\varepsilon B_t$. Azar, Broder, Karlin, Linial and Phillips~\cite{ABKLP} study a controller that
+fixes one such $B$ in order to help the walk, and Haslegrave, Sauerwald and Sylvester~\cite{HSS} study helpful
+controllers that may vary in time; in~\cite{Zu} the controller is an adversary.
+Writing $N_t(S)$ for the number of visits to $S\subseteq V$ up to time $t$, Zuckerman defines the upper stationary
+probability
+\[
+\pi^+(S)=\sup\,\limsup_{t\to\infty}\frac{N_t(S)}{t},
+\]
+the supremum being over strong $\varepsilon$-adversaries \cite[Definition~1.1]{Zu}. How far $\pi^+(S)$ can exceed
+$\pi(S)$ is the stationary robustness of the chain, in the terms of~\cite[Section~1.2]{Zu}. Let
+$\tmix=\min\{t:\max_x\|P^t(x,\cdot)-\pi\|_{\mathrm{TV}}\le 1/4\}$ be the mixing time. For the simple random walk on
+a graph let $p_t(u,\cdot)$ be the law of $X_t$ started at $u$, let
+$s_{\mathrm{up}}(t)=\max_{u,v}\bigl(p_t(u,v)/\pi(v)-1\bigr)$ and, for a constant $\alpha\in(0,1)$, let
+$\tup(\alpha)=\min\{t:s_{\mathrm{up}}(t)\le\alpha\}$, the upper separation time of~\cite[Definitions~2.6 and~2.7]{Zu}.
+
+\begin{thmz}[{Zuckerman~\cite[Theorem~1.2]{Zu}}]\label{thm:zu}
+Let $G=(V,E)$ be a graph with all degrees at most $d$. For every strong $\varepsilon$-adversary for the simple random
+walk on $G$, every starting distribution, and every $S\subseteq V$ with $\pi(S)\le 1-\alpha$,
+\[
+\pi^+(S)<(1+\alpha)\exp\Bigl(2\varepsilon\sqrt{2d\,\tup\ln(1/\pi(S))}\Bigr)\pi(S),\qquad \tup=\tup(\alpha).
+\]
+In particular, for $\varepsilon=O(1/\sqrt{d\,\tup})$ one has $\pi^+(S)=O(\pi(S)^{1-o(1)})$.
+\end{thmz}
+
+\Cref{thm:zu} is stated in~\cite{Zu} for every graph; Section~1.1 of~\cite{Zu} treats the maximum degree as small
+or constant. Conjecture~1.18 of~\cite{Zu} is the same statement with $\tmix$ in place of $\tup$. Both fail when the
+degree is large, and since $\tmix=\tup=1$ on the complete graph $K_n$ on $n$ vertices (\Cref{lem:kn}), one example
+disposes of both.
+
+\begin{theorem}\label{thm:fail}
+Let $n\ge 5$, let $c\in(0,1]$ and let $\varepsilon=c/\sqrt{n-1}$. For the simple random walk on $K_n$ there is a
+strong $\varepsilon$-adversary such that, from any start, almost surely
+\[
+\lim_{t\to\infty}\frac{N_t(\{v\})}{t}=\frac{a}{1+a}\ge\frac{\varepsilon}{2},\qquad a=\varepsilon+\frac{1-\varepsilon}{n-1},
+\]
+for a fixed vertex $v$. For every $\alpha\in[1/(n-1),1-1/n]$ one has $\tup(\alpha)=1$ and $\pi(\{v\})\le1-\alpha$, and the right-hand side of
+\Cref{thm:zu} for $S=\{v\}$ is less than $2e^{2c\sqrt{2\ln n}}/n$. Hence \Cref{thm:zu}, and its form with $\tmix$
+in place of $\tup$, fail for $K_n$ once $c\,n\,e^{-2c\sqrt{2\ln n}}>4\sqrt{n-1}$, which holds for every $n$ larger
+than a constant depending on $c$. For $n=65537$ and $\varepsilon=2^{-11}$
+the limit equals $67583/134285311$, which is more than $5$ times the right-hand side for every
+$\alpha\in[1/(n-1),1-1/n]$ and more than $8$ times it for $\alpha=1/4$.
+\end{theorem}
+
+The same example contradicts the final clause of \Cref{thm:zu}: with $\varepsilon=c/\sqrt{d\,\tup}$ we have
+$\pi^+(\{v\})\ge c/(2\sqrt{n-1})$, while $\pi(\{v\})^{1-o(1)}=n^{-1+o(1)}$. The proof in~\cite{Zu} rests on a bound
+at a fixed time $t$. Let $p$ be the probability that the walk without the adversary is in $S$ at time $t$. Under
+the adversary this probability is at most $e^{2tkd\varepsilon^2}p^{1-1/k}$ for every $k>1$ with $kd\varepsilon\le1$
+\cite[Theorem~3.3]{Zu}. The proof of \cite[Corollary~3.5]{Zu} takes $k=\sqrt{\ln(1/p)/(2td\varepsilon^2)}$, for which
+$kd\varepsilon=\sqrt{d\ln(1/p)/(2t)}$, and this exceeds $1$ when $d\ln(1/p)>2t$ (\Cref{rem:where}).
+
+For a graph with minimum degree at least $\gamma n$ and $\varepsilon\le\beta/n$, Haslegrave, Sauerwald and
+Sylvester~\cite[Proposition~4.7]{HSS} prove that a stationary distribution of one fixed admissible matrix gives each
+vertex $u$ probability at most $(1+\beta)\gamma^{-2}\pi(u)$. Almost surely every limit point of the empirical
+measure of the walk under a strong $\varepsilon$-adversary is stationary for one admissible matrix (proof of
+\Cref{thm:half}), so a bound for every admissible matrix is a bound on $\pi^+$. On $K_n$, with $\gamma=1-1/n$ and
+$\beta=\varepsilon n$, this gives $\pi^+(\{v\})\le(1+\varepsilon n)n/(n-1)^2$, which is of order $\varepsilon$ for
+the $\varepsilon$ of \Cref{thm:fail}. With the lower bound $\varepsilon/2$ of \Cref{thm:fail} this fixes the order of
+$\pi^+(\{v\})$ on $K_n$.
+
+Since the factor in \Cref{thm:zu} cannot hold uniformly in the degree, we ask which exponents can.
+
+\begin{theorem}\label{thm:half}
+Let $P$ be an irreducible transition matrix on a finite set $V$, reversible with respect to $\pi$, such that
+$P(x,y)\ge 1/D$ whenever $P(x,y)>0$, and suppose $\tau=\tmix<\infty$. If $\varepsilon^2D\tau\le 1/20$, then for every
+strong $\varepsilon$-adversary, every starting distribution and every $S\subseteq V$, almost surely
+\[
+\limsup_{t\to\infty}\frac{N_t(S)}{t}\le 2\pi(S)^{1/2}.
+\]
+In particular $\pi^+(S)\le 2\pi(S)^{1/2}$.
+\end{theorem}
+
+For the simple random walk on a non-bipartite graph with degrees at most $d$ one may take $D=d$. For graphs of
+bounded degree \Cref{thm:zu}, where it holds, gives $\pi(S)^{1-o(1)}$, far stronger than \Cref{thm:half}; we do not
+know whether it holds for bounded $d$, and \Cref{sec:fail} shows only that the proof in~\cite{Zu} does not establish
+it. In its stated range, Theorem~3.3 of~\cite{Zu} with $k=\ell=2$ gives, when $2d\varepsilon\le1$, that the
+probability of being in $S$ at time $t$ under the adversary is at most $e^{4td\varepsilon^2}p^{1/2}$, where $p$ is
+the same probability without the adversary. Under $\varepsilon^2d\tau\le1/20$ the condition $2d\varepsilon\le1$ holds
+when $d\le5\tau$, and the proof of \Cref{thm:zu} in~\cite{Zu} passes from such a bound at a fixed time to $\pi^+$,
+with $\tup$ in the role of $\tau$. What \Cref{thm:half} adds is the range $d\varepsilon>1/2$, the mixing time in
+place of $\tup$, and general reversible chains.
+
+The proof is short. Let $Q=(1-\varepsilon)P+\varepsilon B$ be admissible. On $\supp P$ the ratio $Q/P$ equals
+$1+\varepsilon(U-1)$ with $U=B/P$, and $0\le U\le D$. For the chain $P$ started at $x$, the likelihood ratio $L$ of
+its first $\tau$ steps under $Q$ against $P$ therefore has second moment $\mathbb E_xL^2\le e^{\varepsilon^2D\tau}$.
+In the norm $\|h\|^2=\sum_x\pi(x)h(x)^2$ on functions $h$ on $V$ this gives $\|(Q^\tau-P^\tau)h\|\le\frac14\|h\|$
+(\Cref{lem:lr}). Reversibility gives $\|(P^\tau-\Pi)h\|\le\frac12\|h\|$, where every row of $\Pi$ is $\pi$
+(\Cref{lem:gap}). Let $\nu$ be a stationary distribution of $Q$, let $f=\nu/\pi$ be its density, and let $\mathbf 1$
+be the constant function $1$. The two estimates give $\|f-\mathbf 1\|\le\frac14\|f\|+\frac12\|f-\mathbf 1\|$, so
+$\|f\|\le2$, and $\nu(S)\le2\pi(S)^{1/2}$ by Cauchy--Schwarz (\Cref{prop:stat}). Almost surely every limit point of the empirical measure of the walk under the
+adversary is stationary for one admissible matrix, and this gives \Cref{thm:half}.
+
+By \Cref{thm:fail} the exponent $1/2$ cannot be raised.
+
+\begin{corollary}\label{cor:exp}
+Let $\kappa\in(0,1]$. There are constants $c_\kappa,C_\kappa>0$ such that $\pi^+(S)\le C_\kappa\pi(S)^\kappa$ for
+every chain as in \Cref{thm:half}, every $\varepsilon\le c_\kappa/\sqrt{D\tau}$ and every $S\subseteq V$, if and only
+if $\kappa\le1/2$.
+\end{corollary}
+
+The proof is given in \Cref{sec:fail}, where the same is shown for lazy walks.
+
+A second bound needs no reversibility. Its first step is an argument of Zuckerman~\cite[Proposition~2.12]{Zu} (see
+\Cref{rem:mix}). \Cref{prop:tv} below shows that every stationary distribution $\nu$ of an admissible matrix
+satisfies $\|\nu-\pi\|_{\mathrm{TV}}\le2\varepsilon\tau$, so that $\pi^+(S)\le\pi(S)+2\varepsilon\tau$ for every
+chain with $\tau=\tmix$. \Cref{thm:half} gives the
+smaller bound only when $\pi(S)$ is small compared with $(\varepsilon\tau)^2$, which under its hypothesis is at most
+$\tau/(20D)$. On $K_n$ the two bounds are of the same order for a single vertex. If, on the other hand, a family of
+$d$-regular non-bipartite graphs on $n$ vertices has $\tau$ bounded while $d\to\infty$ and $d=o(n)$, then for
+$\varepsilon=1/\sqrt{20d\tau}$ the bound of \Cref{prop:tv} for a single vertex is of order $d^{-1/2}$ and \Cref{thm:half}
+gives $2n^{-1/2}$.
+
+Haslegrave, Sauerwald and Sylvester~\cite[Section~4.3]{HSS} call a matrix $Q$ supported on the edges of a graph a
+$(\theta,\Theta)$-simple walk if $\theta/d(u)\le Q(u,w)\le\Theta/d(u)$ for every edge $uw$, where $d(u)$ is the
+degree of $u$, and prove that its stationary distribution gives each vertex $x$ probability at most
+$2\Theta^{\tau_2}\pi(x)$
+\cite[Proposition~4.8]{HSS}. Here $\tau_2=\min\{t_\infty,3\ln n/|\ln\lambda_*|\}$, where $t_\infty$ is the least $t$
+with $|\tilde p_t(x,y)/\pi(y)-1|<1/e$ for all $x,y$, $\tilde p_t$ being the law at time $t$ of the lazy walk, and
+$\lambda_*$ is the largest absolute value of an eigenvalue other than $1$ of the simple random walk. On a graph with
+degrees at most $d$ an admissible matrix satisfies
+$(1-\varepsilon)/d(u)\le Q(u,w)\le\varepsilon+(1-\varepsilon)/d(u)\le(1+\varepsilon d)/d(u)$, as in the proof
+of~\cite[Proposition~4.7]{HSS}, so it is a $(1-\varepsilon,1+\varepsilon d)$-simple walk, and with the limit point
+argument above $\pi^+(\{x\})\le2(1+\varepsilon d)^{\tau_2}\pi(x)$. This bound is the stronger one when
+$\varepsilon d\tau_2$ is bounded. Where both apply, \Cref{thm:half} gives the smaller bound at $x$ exactly when
+$(1+\varepsilon d)^{\tau_2}>\pi(x)^{-1/2}$. On $K_n$ with $\varepsilon=c/\sqrt{n-1}$ and $c\le1/\sqrt{20}$ we have
+$t_\infty\ge2$, since the lazy walk stays put at time $1$ with probability $1/2$, and $3\ln n/\ln(n-1)>3$; so
+$\tau_2\ge2$, the bound of~\cite{HSS} at a vertex is at least $2(1+c\sqrt{n-1})^2/n>2c^2(n-1)/n$, and \Cref{thm:half}
+gives $2n^{-1/2}$.
+
+In the other direction, a controller that fixes one matrix $B$ can raise the stationary probability of a vertex
+$x$ to at least $\pi(x)^{1-\varepsilon}/(16\,\tilde t)$, where $\tilde t$ is the total variation mixing time of the
+lazy walk~\cite[Theorem~4.3 and its proof]{HSS}. Azar et al.\ proved $\pi(x)^{1-O(\varepsilon)}$ for regular graphs
+of bounded degree and conjectured $\pi(x)^{1-\varepsilon}$ for every graph; the conjecture fails for $K_2$, as recorded
+in~\cite[Section~4]{HSS}. These are lower bounds for $\pi^+(\{x\})$.
+
+\section{The complete graph}\label{sec:fail}
+
+We use one fact about empirical measures for the walk under an adversary, with matrices
+$Q_i=(1-\varepsilon)P+\varepsilon B_i$ at time $i$. Put
+\[
+\mu_t(x)=\frac1t\sum_{i<t}\mathbf 1\{X_i=x\},\qquad F_t(x,y)=\frac1t\sum_{i<t}\mathbf 1\{X_i=x\}Q_i(x,y).
+\]
+
+\begin{lemma}\label{lem:emp}
+Almost surely, $\mu_t(y)-\sum_xF_t(x,y)\to0$ for every $y\in V$.
+\end{lemma}
+
+\begin{proof}
+Fix $y$ and let $\xi_i=\mathbf1\{X_{i+1}=y\}-Q_i(X_i,y)$ and $M_t=\sum_{i<t}\xi_i$. The $\xi_i$ are bounded by $1$
+and have conditional mean $0$ given $X_0,\dots,X_i$, so they are orthogonal and $\mathbb E M_t^2\le t$. By
+Chebyshev's inequality $\Pr[|M_{j^2}|>\zeta j^2]\le\zeta^{-2}j^{-2}$ for every $\zeta>0$, so by the first Borel--Cantelli lemma
+$M_{j^2}/j^2\to0$ almost surely; for $j^2\le t<(j+1)^2$ we have $|M_t-M_{j^2}|\le2j+1$, hence $M_t/t\to0$. Finally
+$t\mu_t(y)$ and $\sum_{i<t}\mathbf1\{X_{i+1}=y\}$ differ by at most $1$.
+\end{proof}
+
+\begin{lemma}\label{lem:kn}
+For the simple random walk on $K_n$ with $n\ge5$, $\tmix=1$ and $\tup(\alpha)=1$ for every
+$\alpha\in[1/(n-1),1)$.
+\end{lemma}
+
+\begin{proof}
+From $u$ the law of $X_1$ is uniform on $V\setminus\{u\}$ and $\pi$ is uniform on $V$. The total variation distance
+is $\frac12\bigl(\frac1n+(n-1)(\frac1{n-1}-\frac1n)\bigr)=\frac1n\le\frac14$. The ratio $p_1(u,w)/\pi(w)$ is $n/(n-1)$
+at every vertex $w\ne u$ and $0$ at $u$, so $s_{\mathrm{up}}(1)=1/(n-1)\le\alpha$. At time $0$ the distance is
+$1-1/n>1/4$ and $s_{\mathrm{up}}(0)=n-1>\alpha$, so both times equal $1$.
+\end{proof}
+
+\begin{proof}[Proof of \Cref{thm:fail}]
+Fix $v$ and let the adversary use the point mass $B(x,\cdot)=\delta_v$ at $v$ for $x\ne v$ and $B(v,\cdot)=P(v,\cdot)$. Since $v$ is a neighbour
+of every $x\ne v$, $\supp B(x,\cdot)\subseteq\supp P(x,\cdot)$, so $Q=(1-\varepsilon)P+\varepsilon B$ is admissible. It is irreducible,
+moves from every $x\ne v$ to $v$ with probability $a=\varepsilon+(1-\varepsilon)/(n-1)$, and leaves $v$ with probability
+$1$. If $\nu$ is a stationary distribution of $Q$, then, since $Q(v,v)=0$ and $Q(x,v)=a$ for $x\ne v$,
+$\nu(v)=a\sum_{x\ne v}\nu(x)=a(1-\nu(v))$, that is, $\nu(v)=a/(1+a)$. Here $Q_i=Q$ for all $i$, so
+$F_t(x,\cdot)=\mu_t(x)Q(x,\cdot)$, and by \Cref{lem:emp} every limit point of $(\mu_t)$ is a stationary distribution
+of $Q$. Hence $\mu_t(v)\to a/(1+a)$ almost surely, and $N_t(\{v\})/t$ differs from $\mu_t(v)$ by at most $1/t$. Since $\varepsilon\le a\le1$,
+$a/(1+a)\ge\varepsilon/2$.
+
+Let $\alpha\in[1/(n-1),1-1/n]$. Then $\pi(\{v\})=1/n\le1-\alpha$, so \Cref{thm:zu} applies to $S=\{v\}$, and by
+\Cref{lem:kn} its bound, with $d=n-1$, is
+\[
+(1+\alpha)\exp\Bigl(2\varepsilon\sqrt{2(n-1)\ln n}\Bigr)\frac1n=(1+\alpha)\frac{e^{2c\sqrt{2\ln n}}}{n}<\frac{2e^{2c\sqrt{2\ln n}}}{n}.
+\]
+It is smaller than $\varepsilon/2=c/(2\sqrt{n-1})$ when $c\,n\,e^{-2c\sqrt{2\ln n}}>4\sqrt{n-1}$; the left side grows like
+$n^{1-o(1)}$ and the right like $n^{1/2}$.
+
+For $n=65537=2^{16}+1$ and $\varepsilon=2^{-11}$ (so $c=2^{-3}$) we get $a=(33\cdot2^{11}-1)/2^{27}=67583/2^{27}$ and
+$a/(1+a)=67583/134285311$, which is $32.98\dots$ times $\pi(\{v\})=1/n$. The exponent in the bound is
+$2^{-10}\sqrt{2^{17}\ln n}=2^{-3/2}\sqrt{\ln n}=1.1774\dots$, so the bound is at most $2e^{1.1775}/n<6.50/n$ for
+every $\alpha$ in this range and equals $1.25\,e^{1.1774\dots}/n<4.06/n$ for $\alpha=1/4$.
+\end{proof}
+
+\begin{proof}[Proof of \Cref{cor:exp}]
+For $\kappa\le1/2$ take $c_\kappa=1/\sqrt{20}$ and $C_\kappa=2$, and use \Cref{thm:half} with
+$\pi(S)^{1/2}\le\pi(S)^\kappa$. For $\kappa>1/2$, given $c_\kappa$ and $C_\kappa$, the simple random walk on $K_n$ has
+$D=n-1$ and $\tau=1$ for $n\ge5$ (\Cref{lem:kn}); with $\varepsilon=\min(c_\kappa,1)/\sqrt{n-1}$, \Cref{thm:fail}
+gives $\pi^+(\{v\})\ge\min(c_\kappa,1)/(2\sqrt{n-1})$, which exceeds $C_\kappa n^{-\kappa}$ for large $n$.
+\end{proof}
+
+The same holds for the lazy walk $P_L=(I+P)/2$ on $K_n$, for which $D=2(n-1)$. Its eigenvalues other than $1$ equal
+$r=(n-2)/(2(n-1))$, so $P_L^t(u,\cdot)-\pi=r^t(\delta_u-\pi)$ and the distance to $\pi$ at time $t$ is
+$(1-1/n)r^t$. This is $(n-2)/(2n)>1/4$ at $t=1$ and $(n-2)^2/(4n(n-1))<1/4$ at $t=2$, so $\tau=2$ for $n\ge5$. The
+adversary that always sends its share to $v$ (the lazy walk has a loop at $v$) gives every row of the admissible
+matrix it uses mass at least $\varepsilon$ at $v$, so the stationary mass of $v$ is at least $\varepsilon$, and with
+$\varepsilon=\min(c_\kappa,1)/\sqrt{4(n-1)}$ this exceeds $C_\kappa n^{-\kappa}$ for large $n$ when $\kappa>1/2$.
+
+\begin{remark}\label{rem:where}
+The proof of \Cref{thm:zu} in~\cite{Zu} applies Corollary~3.5 of~\cite{Zu}, which bounds the probability
+$q_t(S)$ of being in $S$ at time $t$ under the adversary by $\exp\bigl(2\varepsilon\sqrt{2td\ln(1/p)}\bigr)p$, where
+$p=p_t(S)$. That corollary is derived from Theorem~3.3 of~\cite{Zu}, which states $q_t(S)\le e^{2tkd\varepsilon^2}p^{1/\ell}$
+for $k,\ell>1$ with $1/k+1/\ell=1$ \emph{and $kd\varepsilon\le1$}, by choosing $k=\sqrt{\ln(1/p)/(2td\varepsilon^2)}$. For
+this choice $kd\varepsilon=\sqrt{d\ln(1/p)/(2t)}$, which does not depend on $\varepsilon$ and exceeds $1$ whenever
+$d\ln(1/p)>2t$. In the example of \Cref{thm:fail} with $n=65537$ and $\varepsilon=2^{-11}$, at $t=1$ and $p=1/(n-1)$, it equals $603$ to the nearest integer, and
+Corollary~3.5 itself fails there: $q_1(\{v\})=a$ from any start $x\ne v$, while the corollary gives
+$e^{2\varepsilon\sqrt{2d\ln d}}/d<3.3/d$, against $a=33/d$ up to a term of order $d^{-1}\varepsilon$.
+\end{remark}
+
+\section{An exponent one half bound}\label{sec:half}
+
+Throughout this section $P$, $\pi$, $D$ and $\tau$ are as in \Cref{thm:half}, and $L^2(\pi)$ is the space of functions
+on $V$ with $\|h\|^2=\sum_x\pi(x)h(x)^2$. For a matrix $K$ on $V$ write $Kh(x)=\sum_yK(x,y)h(y)$, and let $K^*$ be its
+adjoint in $L^2(\pi)$, $K^*g(y)=\sum_x\pi(x)g(x)K(x,y)/\pi(y)$. If $\nu$ is a measure with density $f=\nu/\pi$, then
+$\nu K$ has density $K^*f$. Reversibility says that $P^*=P$.
+
+Admissible matrices are as defined in \Cref{sec:intro}.
+
+\begin{lemma}\label{lem:lr}
+If $Q$ is admissible and $\varepsilon^2D\tau\le1/20$, then $\|(Q^\tau -P^\tau)h\|\le\frac14\|h\|$ for every $h$.
+\end{lemma}
+
+\begin{proof}
+On $\supp P$ write $Q(x,y)/P(x,y)=1+\varepsilon(U(x,y)-1)$ with $U=B/P$. Then $0\le U\le D$ and
+$\sum_yP(x,y)U(x,y)=1$, so
+\[
+\sum_yP(x,y)\bigl(1+\varepsilon(U(x,y)-1)\bigr)^2=1+\varepsilon^2\Bigl(\sum_yP(x,y)U(x,y)^2-1\Bigr)\le1+\varepsilon^2(D-1).
+\]
+Let $(X_i)$ be the chain $P$ started at $x$, and $L=\prod_{i<\tau}Q(X_i,X_{i+1})/P(X_i,X_{i+1})$. Since $Q(x,y)>0$ only
+where $P(x,y)>0$, $Q^\tau h(x)=\mathbb E_x[L\,h(X_\tau)]$ and $\mathbb E_x L=1$. Conditioning on $X_0,\dots,X_{\tau -1}$ and
+using the display $\tau$ times gives $\mathbb E_xL^2\le(1+\varepsilon^2D)^\tau\le e^{\varepsilon^2D\tau}$, so
+$\mathbb E_x(L-1)^2\le e^{1/20}-1<1/16$. By Cauchy--Schwarz,
+\[
+\bigl|(Q^\tau -P^\tau)h(x)\bigr|=\bigl|\mathbb E_x[(L-1)h(X_\tau)]\bigr|\le\tfrac14\bigl(P^\tau (h^2)(x)\bigr)^{1/2}.
+\]
+Squaring, multiplying by $\pi(x)$ and summing, with $\pi P^\tau=\pi$, gives the claim.
+\end{proof}
+
+\begin{lemma}\label{lem:gap}
+Let $A=P^\tau -\Pi$, where $\Pi(x,y)=\pi(y)$. Then $\|Ah\|\le\frac12\|h\|$ for every $h$.
+\end{lemma}
+
+\begin{proof}
+By the definition of $\tau$, $\sum_y|A(x,y)|\le\frac12$ for every $x$. By reversibility
+$\pi(x)P^\tau (x,y)=\pi(y)P^\tau (y,x)$, so
+\[
+\sum_x\pi(x)|A(x,y)|=\pi(y)\sum_x|P^\tau (y,x)-\pi(x)|\le\tfrac12\pi(y).
+\]
+By Cauchy--Schwarz, $|Ah(x)|^2\le\frac12\sum_y|A(x,y)|h(y)^2$, and summing against $\pi$ gives
+$\|Ah\|^2\le\frac12\sum_yh(y)^2\sum_x\pi(x)|A(x,y)|\le\frac14\|h\|^2$.
+\end{proof}
+
+\begin{proposition}\label{prop:stat}
+Let $Q$ be admissible with $\varepsilon^2D\tau\le1/20$, and let $\nu$ be a stationary distribution of $Q$. Then
+$\nu(S)\le2\pi(S)^{1/2}$ for every $S\subseteq V$.
+\end{proposition}
+
+\begin{proof}
+Let $f=\nu/\pi$. Since $\nu Q^\tau=\nu$, $f=(Q^\tau)^*f$. We have $\Pi^*f=\sum_x\pi(x)f(x)=1$, $(P^\tau)^*\mathbf1=\mathbf1$ and
+$\Pi^*\mathbf1=\mathbf1$, so $A^*\mathbf1=0$ and
+\[
+f-\mathbf1=(Q^\tau -P^\tau)^*f+(P^\tau)^*f-\Pi^*f=(Q^\tau -P^\tau)^*f+A^*(f-\mathbf1).
+\]
+Adjoints have the same norm, so by \Cref{lem:lr,lem:gap}, $\|f-\mathbf1\|\le\frac14\|f\|+\frac12\|f-\mathbf1\|$, that is
+$\|f-\mathbf1\|\le\frac12\|f\|$, and then $\|f\|\le1+\frac12\|f\|$ gives $\|f\|\le2$. By Cauchy--Schwarz,
+$\nu(S)=\sum_{x\in S}\pi(x)f(x)\le\|f\|\pi(S)^{1/2}\le2\pi(S)^{1/2}$.
+\end{proof}
+
+\begin{proof}[Proof of \Cref{thm:half}]
+The matrix $Q_i=(1-\varepsilon)P+\varepsilon B_i$ used at time $i$ is admissible. With $\mu_t$ and $F_t$ as in
+\Cref{sec:fail}, fix an outcome where the conclusion of \Cref{lem:emp} holds, and a sequence $t_j\to\infty$
+with $\mu_{t_j}(S)\to\limsup_t\mu_t(S)$ along which $\mu_{t_j}\to\mu$ and $F_{t_j}\to F$.
+
+Then $\mu$ is a probability measure, $\sum_xF(x,y)=\mu(y)$, and
+\[
+F(x,\cdot)=(1-\varepsilon)\mu(x)P(x,\cdot)+\varepsilon \Gamma(x,\cdot),
+\]
+where $\Gamma(x,\cdot)$ is the limit of $\frac1t\sum_{i<t}\mathbf1\{X_i=x\}B_i(x,\cdot)$, a measure of total mass $\mu(x)$
+supported in $\supp P(x,\cdot)$. Put $\bar B(x,\cdot)=\Gamma(x,\cdot)/\mu(x)$ if $\mu(x)>0$ and $\bar B(x,\cdot)=P(x,\cdot)$
+otherwise. Then $\bar Q=(1-\varepsilon)P+\varepsilon\bar B$ is admissible and $\mu(x)\bar Q(x,\cdot)=F(x,\cdot)$ for every
+$x$, so $\mu\bar Q=\mu$. By \Cref{prop:stat}, $\limsup_t\mu_t(S)=\mu(S)\le2\pi(S)^{1/2}$, and $N_t(S)/t$ differs from
+$\mu_t(S)$ by at most $1/t$.
+\end{proof}
+
+The elementary bound used for comparison in the introduction needs neither reversibility nor a lower bound on the
+entries of $P$.
+
+\begin{proposition}\label{prop:tv}
+Let $P$ be an irreducible transition matrix with stationary distribution $\pi$ and $\tau=\tmix<\infty$. If
+$Q=(1-\varepsilon)P+\varepsilon B$ for a stochastic matrix $B$ and $\nu$ is a stationary distribution of $Q$, then
+$\|\nu-\pi\|_{\mathrm{TV}}\le2\varepsilon\tau$. Consequently $\pi^+(S)\le\pi(S)+2\varepsilon\tau$ for every
+$S\subseteq V$.
+\end{proposition}
+
+\begin{proof}
+For probability measures $\rho$ on $V$, $\|\rho Q-\rho P\|_{\mathrm{TV}}=\varepsilon\|\rho B-\rho
+P\|_{\mathrm{TV}}\le\varepsilon$, so writing $\rho Q^\tau-\rho P^\tau=\sum_{j<\tau}(\rho Q^{j}Q-\rho
+Q^{j}P)P^{\tau-1-j}$ and using that $P$ does not increase total variation gives $\|\rho Q^\tau-\rho P^\tau\|_{\mathrm{TV}}\le\varepsilon\tau$. If $\eta$ is a signed
+measure of total mass $0$ and $s=\|\eta\|_{\mathrm{TV}}>0$, then $\eta^+/s$ and $\eta^-/s$ are probability measures
+whose difference is $\eta/s$; by convexity $\|\eta P^\tau\|_{\mathrm{TV}}\le s\max_{x,y}\|P^\tau(x,\cdot)-P^\tau(y,\cdot)\|_{\mathrm{TV}}
+\le\frac12\|\eta\|_{\mathrm{TV}}$, by the triangle inequality and the definition of $\tau$. Applying both to
+$\nu-\pi=(\nu Q^\tau-\nu P^\tau)+(\nu-\pi)P^\tau$ gives $\|\nu-\pi\|_{\mathrm{TV}}\le\varepsilon\tau+\frac12\|\nu-\pi\|_{\mathrm{TV}}$.
+For the second statement, the proof of \Cref{thm:half} uses reversibility and the bound on the entries only through
+\Cref{prop:stat}; with the first statement in its place it gives $\limsup_t\mu_t(S)=\mu(S)\le\pi(S)+2\varepsilon\tau$.
+\end{proof}
+
+\begin{remark}\label{rem:mix}
+The first step of this proof is the estimate behind~\cite[Proposition~2.12]{Zu}. It holds for strong adversaries,
+also when $B_i$ depends on the past: with probability at least $(1-\varepsilon)^t$ the first $t$ steps all use $P$,
+so the law of $X_t$ under the adversary is within $\varepsilon t$ of $\rho P^t$ in total variation, where $\rho$ is
+the law of $X_0$.
+\end{remark}
+
+\section*{Acknowledgments and funding}
+
+This work was done by multiple AI agents, Claude (Anthropic) and Codex (OpenAI), connected to Math
+Brain~\cite{MathBrainRepo} and working inside the Brain framework~\cite{BrainFramework}; see also the Math Brain
+paper~\cite{MathBrainPaper}.
+
+The research presented in this paper was supported by the European Research Council (ERC) under the European
+Union's Horizon Europe research and innovation programme (grant agreement No.\ 101041711), by the Simons Foundation
+(as part of the Collaboration on the Mathematical and Scientific Foundations of Deep Learning), by Heights Labs, by
+Convex Nexus Capital, and by the Israel Science Foundation (grants 2258/19 and 4101/25).
+
+\section*{Declaration of competing interest}
+
+The author holds equity in Heights Labs and Convex Nexus Capital and has a management role at Convex Nexus Capital.
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+
+The results of \Cref{sec:fail,sec:half} were developed with AI systems (OpenAI Codex and Anthropic Claude agents
+working under the author's direction, with the shared memory of Math Brain \cite{MathBrainRepo,MathBrainPaper}
+and the Brain framework \cite{BrainFramework}), which also drafted the text and carried out the exact-arithmetic
+computation of \Cref{thm:fail}. The model, the definitions and \Cref{thm:zu} are Zuckerman's \cite{Zu}; the
+controller model is due to Azar, Broder, Karlin, Linial and Phillips \cite{ABKLP}; the order of the complete-graph
+example is covered by Proposition~4.7 of Haslegrave, Sauerwald and Sylvester \cite{HSS}. The author directed the
+work and is responsible for the content of the paper and for decisions concerning its dissemination.
+
+\section*{Data and code availability}
+
+A Python script that recomputes the numbers in the proof of \Cref{thm:fail} with exact rational arithmetic, and
+checks the stationary mass against the full matrix for small $n$, is available at
+\url{https://github.com/yspennstate/strong-adversary-large-degree}.
+
+\appendix
+\section{Notation}
+
+\begin{center}
+\small
+\begin{tabular}{lp{0.5\textwidth}l}
+Symbol & Meaning & First use\\[2pt]
+$V$, $X_t$ & state space; position of the walk at time $t$ & \Cref{sec:intro}\\
+$P$, $\pi$ & transition matrix and its stationary distribution & \Cref{sec:intro}\\
+$c$ & constant in the size of $\varepsilon$ & \Cref{thm:fail}\\
+$\kappa$, $c_\kappa$, $C_\kappa$ & exponent and constants of the corollary & \Cref{cor:exp}\\
+$d(u)$ & degree of the vertex $u$ & \Cref{sec:intro}\\
+$\tau_2$, $t_\infty$, $\tilde p_t$, $\lambda_*$ & quantities in~\cite[Proposition~4.8]{HSS} & \Cref{sec:intro}\\
+$\theta$, $\Theta$ & constants of a simple walk in~\cite{HSS} & \Cref{sec:intro}\\
+$\tilde t$ & total variation mixing time of the lazy walk & \Cref{sec:intro}\\
+$\varepsilon$, $B_t$ & adversary's share and its matrix at time $t$ & \Cref{sec:intro}\\
+$N_t(S)$, $\pi^+(S)$ & visits to $S$ up to time $t$; upper stationary probability & \Cref{sec:intro}\\
+$p_t(u,\cdot)$ & law of the unperturbed walk at time $t$ from $u$ & \Cref{sec:intro}\\
+$\tup(\alpha)$ & upper separation time & \Cref{sec:intro}\\
+$\tmix$, $\tau$ & mixing time at total variation $1/4$ & \Cref{sec:intro}\\
+$D$ & reciprocal of the smallest positive entry of $P$ & \Cref{thm:half}\\
+$a$ & probability that the walk under the adversary of \Cref{thm:fail} enters $v$ & \Cref{thm:fail}\\
+$P_L$, $r$ & lazy walk on $K_n$; its eigenvalue other than $1$ & \Cref{sec:fail}\\
+$\rho$, $\eta$, $s$ & probability measure; signed measure of mass $0$; its total variation & \Cref{prop:tv}\\
+$\beta$, $\gamma$ & constants in the dense-graph bound of~\cite{HSS} & \Cref{sec:intro}\\
+$\nu$ & a stationary distribution of an admissible matrix & \Cref{sec:intro}\\
+$\xi_i$, $M_t$, $\zeta$ & martingale differences, their sum, a positive constant & \Cref{lem:emp}\\
+$\delta_v$ & point mass at $v$ & \Cref{sec:fail}\\
+$k$, $\ell$ & exponents in~\cite[Theorem~3.3]{Zu} & \Cref{sec:intro}\\
+$q_t(S)$ & probability of $S$ at time $t$ under the adversary & \Cref{rem:where}\\
+$\mu_t$, $F_t$ & empirical occupation and flow measures & \Cref{sec:fail}\\
+$Q$ & an admissible matrix & \Cref{sec:intro}\\
+$u$, $w$ & vertices & \Cref{sec:intro}\\
+$h$, $\|h\|$ & a function on $V$; its norm in $L^2(\pi)$ & \Cref{sec:intro}\\
+$U$, $L$ & ratio $B/P$, likelihood ratio & \Cref{sec:intro}\\
+$f$, $\mathbf 1$ & density of a stationary distribution; the constant function & \Cref{sec:intro}\\
+$\Pi$ & the matrix with rows $\pi$ & \Cref{sec:intro}\\
+$A$ & $P^\tau -\Pi$ & \Cref{lem:gap}\\
+$\Gamma$, $\bar B$, $\bar Q$ & limiting adversary measure and the matrices built from it & \Cref{sec:half}\\
+\end{tabular}
+\end{center}
+
+\begin{thebibliography}{9}
+
+\bibitem{ABKLP}
+Y.~Azar, A.~Z.~Broder, A.~R.~Karlin, N.~Linial and S.~J.~Phillips, \emph{Biased random walks}, Combinatorica
+\textbf{16} (1996), 1--18. \doi{10.1007/BF01300124}
+
+\bibitem{HSS}
+J.~Haslegrave, T.~Sauerwald and J.~Sylvester, \emph{Time dependent biased random walks}, ACM Trans.\ Algorithms
+\textbf{18} (2022), no.~2, 1--30. \doi{10.1145/3498848}. Statement numbers refer to arXiv:2006.02475v2.
+
+\bibitem{MathBrainRepo}
+Y.~Shmalo, \emph{Math Brain: public snapshot, code and tests}, 2026.
+\url{https://github.com/yspennstate/math-brain-public}
+
+\bibitem{MathBrainPaper}
+Y.~Shmalo, \emph{Math Brain: shared, auditable memory for multi-agent mathematical research}, October 2026.
+\url{https://github.com/yspennstate/math-brain-public/tree/main/papers/math-brain-2026-10-24}
+
+\bibitem{BrainFramework}
+Y.~Shmalo, \emph{Brain Framework}, public software repository, 2026.
+\url{https://github.com/yspennstate/brain-framework-public}
+
+\bibitem{Zu}
+D.~Zuckerman, \emph{Markov chain robustness}, in: 17th Innovations in Theoretical Computer Science Conference
+(ITCS 2026), LIPIcs \textbf{362}, Paper~118. \doi{10.4230/LIPIcs.ITCS.2026.118}
+
+\end{thebibliography}
+
+\end{document}
