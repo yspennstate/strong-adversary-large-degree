@@ -1,0 +1,6 @@
+*.aux
+*.log
+*.out
+*.toc
+audit_retry.log
+__pycache__/
